@@ -8,40 +8,45 @@
           </li>
         </ul>
 
-        <div *ngIf="showLogin" class="tab-content">
+        <div *ngIf="showLogin">
           <form [formGroup]="signInForm" (ngSubmit)="signIn()">
             <div class="l-login__field-wrap">
-              <label>Email</label>
-              <input formControlName="email" type="email" id="signInEmail" aria-describedby="email" autocomplete="off"
-                (keyup)="moveLabel($event)" />
+              <label class="l-login__label">Email</label>
+              <input class="form-control l-login__input" formControlName="email" type="email" id="signInEmail"
+                aria-describedby="email" autocomplete="off" (keyup)="moveLabel($event)"
+                [ngClass]="{ 'is-invalid': signInEmail.errors && signInEmail.dirty }" />
             </div>
             <div class="l-login__field-wrap">
-              <label>Password</label>
-              <input formControlName="password" type="password" id="signInPassword" autocomplete="off"
-                (keyup)="moveLabel($event)" />
+              <label class="l-login__label">Password</label>
+              <input class="form-control l-login__input" formControlName="password" type="password" id="signInPassword"
+                autocomplete="off" (keyup)="moveLabel($event)"
+                [ngClass]="{ 'is-invalid': signInPassword.errors && signInPassword.dirty }" />
             </div>
-            <button type="submit" class="button">Log In</button>
+            <button type="submit" class="l-login__button">Log In</button>
           </form>
         </div>
 
-        <div *ngIf="!showLogin" class="tab-content">
+        <div *ngIf="!showLogin">
           <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
             <div class="l-login__field-wrap">
-              <label>Email</label>
-              <input formControlName="email" type="email" id="signUpEmail" aria-describedby="email" autocomplete="off"
-                (keyup)="moveLabel($event)" />
+              <label class="l-login__label">Email</label>
+              <input class="form-control l-login__input" formControlName="email" type="email" id="signUpEmail"
+                aria-describedby="email" autocomplete="off" (keyup)="moveLabel($event)"
+                [ngClass]="{ 'is-invalid': signUpEmail.errors && signUpEmail.dirty }" />
             </div>
             <div class="l-login__field-wrap">
-              <label>Password</label>
-              <input formControlName="password" type="password" id="signUpPassword" autocomplete="off"
-                (keyup)="moveLabel($event)" />
+              <label class="l-login__label">Password</label>
+              <input class="form-control l-login__input" formControlName="password" type="password" id="signUpPassword"
+                autocomplete="off" (keyup)="moveLabel($event)"
+                [ngClass]="{ 'is-invalid': signUpPassword.errors && signUpPassword.dirty }" />
             </div>
             <div class="l-login__field-wrap">
-              <label>Confirm Password</label>
-              <input formControlName="confirmPassword" type="password" id="signUpConfirmPassword" autocomplete="off"
-                (keyup)="moveLabel($event)" />
+              <label class="l-login__label">Confirm Password</label>
+              <input class="form-control l-login__input" formControlName="confirmPassword" type="password"
+                id="signUpConfirmPassword" autocomplete="off" (keyup)="moveLabel($event)"
+                [ngClass]="{ 'is-invalid': signUpConfirmPassword.errors && signUpConfirmPassword.dirty }" />
             </div>
-            <button type="submit" class="button">Sign Up</button>
+            <button type="submit" class="l-login__button">Sign Up</button>
           </form>
         </div>
       </div>

@@ -92,4 +92,24 @@ export class LoginComponent implements OnInit {
         console.log('ERROR SIGN IN', error);
       })
   }
+
+  public get signInEmail() {
+    return this.signInForm.get('email');
+  }
+
+  public get signInPassword() {
+    return this.signInForm.get('password');
+  }
+
+  public get signUpEmail() {
+    return this.signUpForm.get('email');
+  }
+
+  public get signUpPassword() {
+    return this.signUpForm.get('password');
+  }
+
+  public get signUpConfirmPassword() {
+    return this.signUpForm.get('confirmPassword');
+  }
 }
