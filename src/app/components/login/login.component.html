@@ -1,4 +1,50 @@
-<p>
-  login works!
-  <button (click)="login()">LOGIN</button>
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3">
+      <div class="l-login c-form">
+        <ul class="l-login__tab-group">
+          <li class="l-login__tab" (click)="showLogin = true" [ngClass]="{'active': showLogin}"><span>Log In</span></li>
+          <li class="l-login__tab" (click)="showLogin = false" [ngClass]="{'active': !showLogin}"><span>Sign Up</span>
+          </li>
+        </ul>
+
+        <div *ngIf="showLogin" class="tab-content">
+          <form [formGroup]="signInForm" (ngSubmit)="signIn()">
+            <div class="l-login__field-wrap">
+              <label>Email</label>
+              <input formControlName="email" type="email" id="signInEmail" aria-describedby="email" autocomplete="off"
+                (keyup)="moveLabel($event)" />
+            </div>
+            <div class="l-login__field-wrap">
+              <label>Password</label>
+              <input formControlName="password" type="password" id="signInPassword" autocomplete="off"
+                (keyup)="moveLabel($event)" />
+            </div>
+            <button type="submit" class="button">Log In</button>
+          </form>
+        </div>
+
+        <div *ngIf="!showLogin" class="tab-content">
+          <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+            <div class="l-login__field-wrap">
+              <label>Email</label>
+              <input formControlName="email" type="email" id="signUpEmail" aria-describedby="email" autocomplete="off"
+                (keyup)="moveLabel($event)" />
+            </div>
+            <div class="l-login__field-wrap">
+              <label>Password</label>
+              <input formControlName="password" type="password" id="signUpPassword" autocomplete="off"
+                (keyup)="moveLabel($event)" />
+            </div>
+            <div class="l-login__field-wrap">
+              <label>Confirm Password</label>
+              <input formControlName="confirmPassword" type="password" id="signUpConfirmPassword" autocomplete="off"
+                (keyup)="moveLabel($event)" />
+            </div>
+            <button type="submit" class="button">Sign Up</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

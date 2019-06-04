@@ -16,11 +16,11 @@ import { environment } from 'src/environments/environment';
   ],
   exports: [
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireModule
   ]
 })
 export class SharedModule extends EnsureModuleLoadedOnceGuard {
-  // Looks for the module in the parent injector to see if it's already been loaded.
   constructor(@Optional() @SkipSelf() parentModule: SharedModule) {
     super(parentModule);
   }

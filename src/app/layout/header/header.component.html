@@ -1,3 +1,26 @@
-<p>
-  header works!
-</p>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">
+    <img src="/assets/images/logo.png" alt="Sticky notes logo" height="50px" style="filter: invert(100%);">
+    <span class="ml-3">Sticky!</span>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navDropDownMenu"
+    aria-controls="navDropDownMenu" aria-label="Toggle navigation" [attr.aria-expanded]="!isCollapsed"
+    (click)="isCollapsed = !isCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-end" id="navDropDownMenu" [ngClass]="{'show': !isCollapsed}">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Settings</a>
+      </li>
+      <li class="dropdown-divider"></li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Sign Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
