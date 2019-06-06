@@ -1,0 +1,13 @@
+.l-header {
+  &__brand {
+    cursor: pointer;
+    
+    span {
+      color: $white;
+    }
+  }
+
+  &__navbar:last-child {
+    cursor: pointer;
+  }
+}

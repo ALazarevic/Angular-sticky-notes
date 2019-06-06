@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { storeReducers } from './core/store/store.reducers';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     CoreModule,
     LayoutModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forRoot({ store: storeReducers })
   ],
   providers: [],
   bootstrap: [AppComponent]

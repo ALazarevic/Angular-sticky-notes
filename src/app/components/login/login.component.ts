@@ -1,22 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState, State } from 'src/app/core/store/store.reducers';
+import { UpdateUser } from 'src/app/core/store/store.actions';
+import { Subscription } from 'rxjs';
+import { MatchPasswordValidator } from 'src/app/core/validators/match-password.validator';
+import { User } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public signInForm: FormGroup;
   public signUpForm: FormGroup;
   public showLogin: boolean = true;
+  public user: User = {
+    id: '',
+    name: '',
+    email: ''
+  };
+  public subscription: Subscription;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private router: Router,
+    private store: Store<AppState>) { }
 
   ngOnInit() {
     this.initializeSignInForm();
     this.initializeSignUpForm();
+
+    this.subscription = this.store.select('store').subscribe((state: State) => {
+      this.user = state.user;
+    })
   }
 
   /**
@@ -37,7 +58,8 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
-    })
+    },
+      { validator: MatchPasswordValidator.matchPassword })
   }
 
   /**
@@ -86,13 +108,21 @@ export class LoginComponent implements OnInit {
     let password = this.signInForm.get('password').value;
 
     this.userService.signIn(email, password).then(response => {
-      console.log('USER SIGNED IN', response)
+      this.user.id = response.user.uid;
+      this.user.name = response.user.displayName;
+      this.user.email = response.user.email;
+
+      this.store.dispatch(new UpdateUser(this.user));
+      this.router.navigateByUrl('user/dashboard');
     })
       .catch(error => {
         console.log('ERROR SIGN IN', error);
       })
   }
 
+  /**
+   * Form validation getters.
+   */
   public get signInEmail() {
     return this.signInForm.get('email');
   }
@@ -111,5 +141,11 @@ export class LoginComponent implements OnInit {
 
   public get signUpConfirmPassword() {
     return this.signUpForm.get('confirmPassword');
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
